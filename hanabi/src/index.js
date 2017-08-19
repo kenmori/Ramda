@@ -4,46 +4,59 @@ import 'babel-polyfill';
 import 'lodash';
 
 
+//ボタンの上部100pxぐらいから丸い玉が上に登って行くアニメーション
+//ある程度したら玉が散らばる
+
+//他のボタンを押したら非同期で同じアニメーションになる
+
+//ボタンを押すたびに違う種類の大きさ色の花火が上がる
+    //大きさが同じで色が違う
+    //大きさが異なり、弾きかたが違う
+    //上がる距離が違う
+
+
+//つまずいたところ
+//classListは読み込み専用。classList.add()とする
+//座標 //windowから見た要素の左上位置の取得//clickした位置の座標を取得//bodyにやるといい
+//要素にstyleを複数当てる方法。setAttributeだと一つ
+//document.getElementById('divName').style.setProperty("top", "100px");
+//window.getComputedStyle(element, null);
+
+
 class Greet extends Component {
- render() {
+    constructor(){
+        super();
+        this.uchiage = this.uchiage.bind(this);
+        this.createHanabi = this.createHanabi.bind(this);
 
-  var stream = {
-   match: (data, pattern) => {
-       return data(pattern);
-      },
-  empty: (_) => {
-   return (pattern) => {
-    return pattern.empty();
-   }
-  },
-  cons: (head, tailThunk) => {
-   return (pattern) => {
-    return pattern.cons(head, tailThunk);
-   }
-  },
-  head: (aStream) => {
-   return stream.match(aStream, {
-    empty: (_) => {return null;},
-    cons: (value, tailThunk) => {return value;}
-   });
-  },
-  tail: (aStream) => {
-   return stream.match(aStream, {
-    empty: (_) => {return null;},
-   cons: (head, tailThunk) => {
-    return tailThunk();
-   }
-   })
-  }
+    }
+    componentDidMount(){
+        document.body.addEventListener('click', this.uchiage)
+    }
+    createHanabi(x, y){
+        var span = document.createElement('span');
+        span.style.left = x + 'px';
+        span.style.top = y + 'px';
+        span.style.position = 'absolute';
+        span.style.background = '#000';
+        span.style.width = '10px';
+        span.style.height = '10px';
+        console.log(span)
+        document.body.appendChild(span)
 
-  }
-  var theStream = staream.cons(1, (_)=>{
-       return stream.cons(2, (_)=>{
-        return stream.empty();
-       })
-      })
+
+    }
+    uchiage(e){
+        var targetX = e.pageX;
+        var targetY = e.pageY;
+        this.createHanabi(targetX, targetY);
+
+    }
+ render(){
   return (
-   <ul id='result'></ul>
+   <ul id='result'>
+             <div id='js-view' className='view'></div>
+         </ul>
   )
  }
 }

@@ -1,4 +1,8 @@
 body {
-background : red;
 }
 
+.view {
+  position: relative;
+  height: 500px;
+  background: rgba(252, 248, 227, 0.21);
+}
