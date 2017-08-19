@@ -21,6 +21,7 @@ import 'lodash';
 //要素にstyleを複数当てる方法。setAttributeだと一つ
 //document.getElementById('divName').style.setProperty("top", "100px");
 //window.getComputedStyle(element, null);
+//プラスの数値をマイナスにして文字列で返す
 
 
 class Greet extends Component {
@@ -28,6 +29,10 @@ class Greet extends Component {
         super();
         this.uchiage = this.uchiage.bind(this);
         this.createHanabi = this.createHanabi.bind(this);
+        this.animationUp = this.animationUp.bind(this);
+        this.state = {
+            id : 0
+        }
 
     }
     componentDidMount(){
@@ -38,11 +43,34 @@ class Greet extends Component {
         span.style.left = x + 'px';
         span.style.top = y + 'px';
         span.style.position = 'absolute';
+        span.style.display = 'inline-block';
         span.style.background = '#000';
         span.style.width = '10px';
         span.style.height = '10px';
-        console.log(span)
-        document.body.appendChild(span)
+        span.id = this.state.id + 1;
+        this.setState({id: this.state.id + 1});
+        console.log(span);
+        document.body.appendChild(span);
+        this.animationUp(span.id);
+    }
+
+    animationUp(id){
+        var thisspan = document.getElementById(id);
+            var intedTop = parseInt(thisspan.style.top.split("px")[0]);
+            thisspan.style.top =  (intedTop + 50) + 'px';
+        var move = () => {
+            var pos = 0;
+            var id = setInterval(frame, 5);
+            function frame(){
+                if(pos == 200){
+                    clearInterval(id);
+                } else {
+                    pos++;
+                    thisspan.style.top = parseInt(thisspan.style.top.split("px")[0]) + pos + 'px';
+                }
+            }
+        }
+        move();
 
 
     }
@@ -50,7 +78,6 @@ class Greet extends Component {
         var targetX = e.pageX;
         var targetY = e.pageY;
         this.createHanabi(targetX, targetY);
-
     }
  render(){
   return (
