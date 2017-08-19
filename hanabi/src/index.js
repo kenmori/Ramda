@@ -17,7 +17,7 @@ import R from 'ramda';
     //上がる距離が違う
 
 
-//つまずいたところ
+//note
 //classListは読み込み専用。classList.add()とする
 //座標 //windowから見た要素の左上位置の取得//clickした位置の座標を取得//bodyにやるといい
 //要素にstyleを複数当てる方法。setAttributeだと一つ
@@ -26,7 +26,8 @@ import R from 'ramda';
 //プラスの数値をマイナスにして文字列で返す
 //documentFragment
 //rangeをネイティブでどう作るか
-
+//document.getElementById取得後のnodeListをArrayとして扱う
+//擬似クラス(pseudo-element)をJSで扱う
 
 
 class Greet extends Component {
@@ -55,10 +56,7 @@ class Greet extends Component {
         this.setState({id: this.state.id + 1});
         console.log(span);
         document.body.appendChild(span);
-        this.animationUp(span.id);
-        this.createSpan(R.range(1, 9))//spanを作る
-        this.hanabiCSSSet();
-
+        this.animationUp(span.id, this.createSpan(R.range(1, 9)));
     }
     hanabiCSSSet(){
 
@@ -67,7 +65,7 @@ class Greet extends Component {
         var df = document.createDocumentFragment();
         for (var i = 0; i <= value.length; i++){
             var span = document.createElement('span');
-            span.classList.add('default');
+            // span.classList.add('default');
             span.classList.add('span' + i);
             if(i === 0) span.classList.add('deg0');
             else if (i === 1) span.classList.add('deg45');
@@ -81,11 +79,11 @@ class Greet extends Component {
             df.appendChild(span);
         }
         var iddom = document.getElementById(this.state.id);
-
         iddom.appendChild(df);
+        return iddom;
     }
 
-    animationUp(id){
+    animationUp(id, elem){
         var span = document.getElementById(id);
         var val = Math.floor(Math.random() * 10);
         if(val === 0 || 1 ){
@@ -93,14 +91,28 @@ class Greet extends Component {
         }
 
         var value = val * -100;
-        anime({
+
+        var basicTimeline = anime.timeline();
+        basicTimeline.add({
             targets: span,
             translateY: [
                 {value: value, duration: 1200}
             ],
             rotate: '1turn',
-            duration: 10,
-            easing: 'linear'
+            easing: 'linear',
+            complete: function(){
+                console.log(this.animatables[0].target.id)
+                var fa = document.getElementById(this.animatables[0].target.id);
+                Array.from(fa.childNodes).map((elem, i)=>{
+                    elem.classList.add('default');
+                });
+            }
+        }).add({
+            targets: elem.children,
+            translateY: [
+                {value: value, duration: 1200}
+            ]
+
         })
     }
     uchiage(e){
