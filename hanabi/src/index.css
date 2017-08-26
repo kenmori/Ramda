@@ -8,22 +8,52 @@ body {
   background: rgba(252, 248, 227, 0.21);
 }
 
-.move {
-
-}
 
 .spanUp {
   position: absolute;
   display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+
+.uped::before {
+ position: absolute;
+}
+
+.span0{
+  position: absolute;
+  top: 0px;
+  right: -20px;
   width: 10px;
   height: 10px;
+  background: #00f;
 }
+.span1{
+  position: absolute;
+  top: 45px;
+  right: -20px;
+  width: 10px;
+  height: 10px;
+  background: #00f;
+}
+.span2{
+  position: absolute;
+  top: 80px;
+  right: -20px;
+  width: 10px;
+  height: 10px;
+  background: #00f;
+}
+
 
 .default {
   width: 3px;
   height: 3px;
   display: block;
   background: #d808a1;
+}
+.default:before{
+ position: relative;
 }
 .deg0 {
   transform: rotate(0deg);
