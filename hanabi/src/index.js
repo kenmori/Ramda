@@ -65,6 +65,8 @@ class Greet extends Component {
         var df = document.createDocumentFragment();
         for (var i = 0; i <= value.length; i++){
             var span = document.createElement('span');
+            var div = document.createElement('div');
+            div.classList.add('move');
             // span.classList.add('default');
             span.classList.add('span' + i);
             if(i === 0) span.classList.add('deg0');
@@ -79,7 +81,8 @@ class Greet extends Component {
             df.appendChild(span);
         }
         var iddom = document.getElementById(this.state.id);
-        iddom.appendChild(df);
+        div.appendChild(df);
+        iddom.appendChild(div);
         return iddom;
     }
 
