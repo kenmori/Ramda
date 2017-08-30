@@ -32,3 +32,13 @@ const numbers = _.range(200);
 const result = _.chain(numbers).map(square).filter(isEven).take(3).value();
 
 console.log(result);
+
+
+
+var rot13 = s =>
+s.replace(/[a-zA-Z]/g, c=> String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c -26)
+(c = c.charCodeAt(0) + 13) ? c : c - 26);
+
+var discountCode = 'functional_js_50_off';
+rot13(discountCode);
+
