@@ -1,5 +1,6 @@
 import R from 'ramda';
 import _ from 'lodash';
+import equal from 'deep-equal';
 
 const f = R.curry(R.add(1))
 console.log(f(10));
@@ -35,10 +36,16 @@ console.log(result);
 
 
 
-var rot13 = s =>
-s.replace(/[a-zA-Z]/g, c=> String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c -26)
-(c = c.charCodeAt(0) + 13) ? c : c - 26);
+// var rot13 = s =>
+// s.replace(/[a-zA-Z]/g, c=> String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c -26)
+// (c = c.charCodeAt(0) + 13) ? c : c - 26);
 
 var discountCode = 'functional_js_50_off';
-rot13(discountCode);
+// rot13(discountCode);
 
+
+var obj1 = {a: 'fafa', id: 133};
+var obj2 = {a: 'fafa', id: 133, c: 'fa'};
+
+var result2 = equal(obj1, obj2);
+console.log(result2);
