@@ -56,3 +56,31 @@ var response2 = [{"menuId":1625,"publishedAt":1503759600000,"displayLatestPublis
 
 var result3 = equal(response, response2);
 console.log(result3, 'result3');
+
+//https://github.com/yukitos/notes/blob/master/A_recipe_for_a_functional_app/Railway%20oriented%20programming.md
+
+var input1 = {name: '', email: ''};
+var input2 = {name: 'morita', email: ''};
+var input3 = {name: '', email: 'good' };
+
+function validate1(input){
+    return input.name === '' ? '名前を入力してください' : input;
+}
+
+function validate2(input){
+    return input.name.length > 3  ? '4文字以上入力してください' : input;
+}
+
+function validate3(input){
+    return input.name === '' ? '名前を入力してください' : input;
+}
+
+function bind(switch){
+    return function(input){
+        switch(input);
+    }
+}
+
+var binded1 = bind(validate1);
+var binded2 = bind(validate2);
+var binded3 = bind(validate3);
