@@ -85,3 +85,11 @@ body {
 .dispNon {
   display: none;
 }
+
+
+/**/
+#js-pan {
+  background: red;
+  width: 100px;
+  height: 100px;
+}

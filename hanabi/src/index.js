@@ -38,13 +38,21 @@ class Greet extends Component {
         this.animationUp = this.animationUp.bind(this);
         this.createSpan = this.createSpan.bind(this);
         this.hanabiCSSSet = this.hanabiCSSSet.bind(this);
+        this.pan = this.pan.bind(this);
         this.state = {
             id : 0
         }
 
     }
     componentDidMount(){
-        document.body.addEventListener('click', this.uchiage)
+        // document.body.addEventListener('click', this.uchiage)
+        var i = document.getElementById('js-pan');
+        i.addEventListener('click', () => {
+            console.log('fafa')
+        });
+    }
+    pan(){
+        console.log('pan');
     }
     createHanabi(x, y){
         var span = document.createElement('span');
@@ -106,7 +114,7 @@ class Greet extends Component {
             complete: function(){
                 console.log(this.animatables[0].target.id)
                 var fa = document.getElementById(this.animatables[0].target.id);
-                Array.from(fa.childNodes).map((elem, i)=>{
+                Array.from(fa.childNodes).map((elem, i)=> {
                     elem.classList.add('default');
                 });
             }
@@ -123,14 +131,14 @@ class Greet extends Component {
         var targetY = e.pageY;
         this.createHanabi(targetX, targetY);
     }
- render(){
-     console.log(anime);
-  return (
-   <ul id='result'>
-             <div id='js-view' className='view'></div>
-         </ul>
-  )
- }
+    render(){
+     return (
+            <ul id='result'>
+                 <div id='js-view' className='view'></div>
+                 <div id='js-pan' className='view'></div>
+            </ul>
+        )
+    }
 }
 window.addEventListener('DOMContentLoaded', ()=>{
  ReactDOM.render(<Greet />, document.querySelector('main'));
