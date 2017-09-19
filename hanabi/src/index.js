@@ -48,11 +48,11 @@ class Greet extends Component {
         // document.body.addEventListener('click', this.uchiage)
         var i = document.getElementById('js-pan');
         i.addEventListener('click', () => {
-            console.log('fafa')
+            this.pan();
         });
     }
     pan(){
-        console.log('pan');
+
     }
     createHanabi(x, y){
         var span = document.createElement('span');
